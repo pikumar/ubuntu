@@ -6,20 +6,24 @@ import time
 import stat
 from datetime import datetime, timedelta
 from pathlib import Path
-from subprocess import check_call
+from subprocess import check_call, check_output
 
 
 def execute(s, asuser="root"):
     if asuser != "root":
         s = "sudo -u "+asuser+" bash -c " + '"' + s +'"'
     print("Executing:", s)
-    os.system(s)
+    output = check_output(s, shell=True)
+    #os.system(s)
+    return output
 
 print("Detecting username:", end=" ")
 print(getpass.getuser())
 username = getpass.getuser()
 parentuser = os.environ['SUDO_USER'] if 'SUDO_USER' in os.environ else os.environ['USER']
 print("Parent user = ", parentuser)
+
+assert os.environ["SHELL"] == "/bin/bash", "FATAL: Use this script only if you use bash as your main shell."
 if username != "root":
     print("Please use sudo to execute this script!")
     sys.exit(1)
@@ -77,7 +81,7 @@ sudo apt install brave-browser -y
 if not Path("/etc/apt/sources.list.d/brave-browser-release.list").is_file():
     check_call(cmd, shell=True)
 
-#Remove snapd
+#Remove snapd -- Todo someday
 # List comes from snap list
 cmd = """
 sudo snap remove snap-store
@@ -101,5 +105,26 @@ sudo rm -rf /var/lib/snapd
 #cmd = "curl -L https://nixos.org/nix/install | sh"
 #execute(cmd, asuser=parentuser)
 #   . /home/uname/.nix-profile/etc/profile.d/nix.sh
+
+#Install pyenv
+spath = "~"+parentuser+"/.pyenv/bin/pyenv"
+spath = Path(spath).expanduser()
+print("Checking:" , spath, end="...")
+if not spath.is_file(): 
+    print("Not found. Installing pyenv.")
+    cmd = "curl https://pyenv.run | bash"
+    execute(cmd, asuser=parentuser)
+else:
+    print("Present. Skipping pyenv install.")
+
+# Install .bashrc 
+spath = "~"+parentuser+"/.bashrc"
+spath = Path(spath).expanduser()
+bashrc = open("dotfiles/.bashrc").read().format(username = parentuser)
+open(spath, "w").write(bashrc)
+
+# Install .tmux.conf
+cmd = "cp dotfiles/.tmux.conf ~/"
+execute(cmd, asuser=parentuser)
 
 print("Open a new terminal for paths to take effect!")
