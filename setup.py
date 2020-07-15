@@ -46,9 +46,8 @@ if __name__ == "__main__":
         os.system("apt update && apt upgrade -y")
 
     # Install basics
-    os.system(
-        "apt install -y htop hexchat git make build-essential xclip python3-pip libcgal-dev locate cmake swig net-tools apt-transport-https torbrowser-launcher"
-    )
+    cmd = "apt install -y " + " ".join(x.strip() for x in open("aptreq.txt").readlines())
+    os.system(cmd)
 
     # Install sublime text
     durl = "https://download.sublimetext.com/sublime_text_3_build_3211_x64.tar.bz2"
