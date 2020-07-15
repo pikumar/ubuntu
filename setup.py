@@ -95,6 +95,18 @@ if __name__ == "__main__":
     if not Path("/etc/apt/sources.list.d/brave-browser-release.list").is_file():
         check_call(cmd, shell=True)
 
+    # Install docker
+    cmd = """
+    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo apt-key add -
+
+    sudo add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/ubuntu focal stable"
+
+    sudo apt update
+
+    sudo apt install docker-ce -y
+    """
+    check_call(cmd, shell=True)
+
     # Remove snapd -- Todo someday
     # List comes from snap list
     cmd = """
