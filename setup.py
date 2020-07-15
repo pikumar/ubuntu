@@ -41,7 +41,7 @@ if seconds > 7200:
 
 
 # Install basics
-os.system("apt install -y htop hexchat git make build-essential xclip python3-pip libcgal-dev locate cmake swig net-tools")
+os.system("apt install -y htop hexchat git make build-essential xclip python3-pip libcgal-dev locate cmake swig net-tools apt-transport-https torbrowser-launcher")
 
 # Install sublime text
 durl = "https://download.sublimetext.com/sublime_text_3_build_3211_x64.tar.bz2"
