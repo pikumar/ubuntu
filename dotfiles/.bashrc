@@ -122,6 +122,6 @@ export PATH=/home/{username}/.local/bin:$PATH
 # Load pyenv automatically by adding
 # the following to ~/.bashrc:
 
-export PATH="/home/{username}/.pyenv/bin:$PATH"
+export PATH="/home/{username}/.pyenv/bin:~/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
