@@ -8,6 +8,15 @@ from datetime import datetime, timedelta
 from pathlib import Path
 from subprocess import check_call, check_output
 
+def install_signal():
+    cmd = """
+    curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
+    echo "deb [arch=amd64] https://updates.signal.org/desktop/apt xenial main" | sudo tee -a /etc/apt/sources.list.d/signal-xenial.list
+    sudo apt update && sudo apt install signal-desktop
+    """
+    if not Path("/etc/apt/sources.list.d/signal-xenial.list").is_file():
+        check_call(cmd, shell=True)
+
 
 def execute(s, asuser="root"):
     if asuser != "root":
@@ -106,6 +115,8 @@ if __name__ == "__main__":
     sudo apt install docker-ce -y
     """
     check_call(cmd, shell=True)
+
+    install_signal()
 
     cmd = """
     sudo sensors-detect --auto
