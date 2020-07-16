@@ -107,6 +107,12 @@ if __name__ == "__main__":
     """
     check_call(cmd, shell=True)
 
+    cmd = """
+    sudo sensors-detect --auto
+    sudo sensors
+    sudo apt install psensor
+    """
+
     # Remove snapd -- Todo someday
     # List comes from snap list
     cmd = """

@@ -5,9 +5,11 @@ cmake
 curl 
 git 
 gparted 
+hddtemp
 hexchat 
 htop 
 libcgal-dev 
+lm-sensors
 locate 
 make 
 net-tools 
