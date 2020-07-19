@@ -20,4 +20,5 @@ software-properties-common
 swig 
 torbrowser-launcher 
 vlc
+wget
 xclip 

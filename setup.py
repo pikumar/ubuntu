@@ -7,6 +7,18 @@ import stat
 from datetime import datetime, timedelta
 from pathlib import Path
 from subprocess import check_call, check_output
+import subprocess
+
+
+def install_visual_code():
+    cmd = """
+    wget -q https://packages.microsoft.com/keys/microsoft.asc -O- | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] https://packages.microsoft.com/repos/vscode stable main"
+    sudo apt update && sudo apt install code -y
+    """
+    if not Path("/usr/bin/code").is_file():
+        check_call(cmd, shell=True)
+
 
 def install_signal():
     cmd = """
@@ -117,6 +129,16 @@ if __name__ == "__main__":
     check_call(cmd, shell=True)
 
     install_signal()
+    install_visual_code()
+
+    # Install dropbox as user
+    ps = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
+    if "dropboxd" not in ps:
+        cmd = """cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -"" """
+        execute(cmd, asuser=parentuser)
+        cmd = """sudo -u """ + parentuser + """ bash -c "~/.dropbox-dist/dropboxd" & """
+        print("Dropbox install command: ", cmd)
+        check_call(cmd, shell=True)
 
     cmd = """
     sudo sensors-detect --auto
