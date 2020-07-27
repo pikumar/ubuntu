@@ -20,7 +20,7 @@ def install_visual_code():
         check_call(cmd, shell=True)
 
 def install_rust(asuser):
-	# rustup uninstall - is how you uninstall rust
+    # rustup uninstall - is how you uninstall rust
     cmd = """
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/x
     chmod a+x /tmp/x
@@ -31,7 +31,16 @@ def install_rust(asuser):
     cmd = str(Path("~" + asuser + "/.cargo/bin/cargo").expanduser()) + " install starship"
     execute(cmd, asuser=asuser)
 
-
+def install_exa(asuser):
+    cmd = """
+    wget https://github.com/ogham/exa/releases/download/v0.9.0/exa-linux-x86_64-0.9.0.zip -O /tmp/x.zip
+    pushd . && cd /tmp && unzip -f x.zip && popd
+    """
+    epath = Path("~" + asuser + "/bin/exa-linux-x86_64").expanduser()
+    if not epath.is_file():
+        execute(cmd, asuser = asuser)
+        execute("cp /tmp/exa-linux-x86_64 " + str(epath), asuser = asuser)
+        
 def install_signal():
     cmd = """
     curl -s https://updates.signal.org/desktop/apt/keys.asc | sudo apt-key add -
@@ -143,6 +152,7 @@ if __name__ == "__main__":
     install_signal()
     install_visual_code()
     install_rust(parentuser)
+    install_exa(parentuser)
 
     # Install dropbox as user
     ps = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
