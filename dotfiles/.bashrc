@@ -126,4 +126,4 @@ export PATH="/home/{username}/.pyenv/bin:~/bin:~/.local/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
 eval "$(starship init bash)"
-alias ls='exa-linux-x86_64 -CF'
+alias ls='exa-linux-x86_64'
