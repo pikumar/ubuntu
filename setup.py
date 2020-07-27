@@ -21,6 +21,7 @@ def install_visual_code():
 
 def install_rust(asuser):
     # rustup uninstall - is how you uninstall rust
+    # Also installs starship which might need nerdfont install!
     cmd = """
     curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/x
     chmod a+x /tmp/x
