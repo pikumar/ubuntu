@@ -13,9 +13,12 @@ libev-dev
 lm-sensors
 locate 
 make 
+meld
+ncdu
 net-tools 
 python3-pip 
 python3-pygame
+rustc
 software-properties-common
 swig 
 torbrowser-launcher 
