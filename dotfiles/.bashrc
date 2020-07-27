@@ -116,7 +116,7 @@ if ! shopt -oq posix; then
   fi
 fi
 
-export PATH=/home/{username}/.local/bin:$PATH
+export PATH=/home/{username}/.local/bin:$PATH:/home/{username}/.cargo/bin
 
 # From pyenv
 # Load pyenv automatically by adding
@@ -125,3 +125,4 @@ export PATH=/home/{username}/.local/bin:$PATH
 export PATH="/home/{username}/.pyenv/bin:~/bin:~/.local/bin:$PATH"
 eval "$(pyenv init -)"
 eval "$(pyenv virtualenv-init -)"
+eval "$(starship init bash)"

@@ -19,6 +19,18 @@ def install_visual_code():
     if not Path("/usr/bin/code").is_file():
         check_call(cmd, shell=True)
 
+def install_rust(asuser):
+	# rustup uninstall - is how you uninstall rust
+    cmd = """
+    curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs > /tmp/x
+    chmod a+x /tmp/x
+    /tmp/x -y -v --profile default
+    """
+    if not Path("~" + asuser + "/.cargo/bin/cargo").expanduser().is_file():
+        execute(cmd, asuser=asuser)
+    cmd = str(Path("~" + asuser + "/.cargo/bin/cargo").expanduser()) + " install starship"
+    execute(cmd, asuser=asuser)
+
 
 def install_signal():
     cmd = """
@@ -130,6 +142,7 @@ if __name__ == "__main__":
 
     install_signal()
     install_visual_code()
+    install_rust(parentuser)
 
     # Install dropbox as user
     ps = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')
