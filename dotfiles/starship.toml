@@ -1,0 +1,19 @@
+# Replace the "❯" symbol in the prompt with "➜"
+[character]      # The name of the module we are configuring is "character"
+symbol = "❯❯"    # The "symbol" segment is being set to "➜"
+
+# Disable the package module, hiding it from the prompt completely
+[package]
+disabled = false
+
+[python]
+pyenv_version_name = true
+
+[directory]
+truncation_length = 8
+truncate_to_repo = false
+
+[time]
+disabled = false
+format = "%Y-%m-%d %H:%M:%S"
+utc_time_offset = "+10"

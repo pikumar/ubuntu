@@ -31,6 +31,8 @@ def install_rust(asuser):
         execute(cmd, asuser=asuser)
     cmd = str(Path("~" + asuser + "/.cargo/bin/cargo").expanduser()) + " install starship"
     execute(cmd, asuser=asuser)
+    cmd = "cp dotfiles/starship.toml ~/.config/"
+    execute(cmd, asuser=asuser)
 
 def install_exa(asuser):
     cmd = """

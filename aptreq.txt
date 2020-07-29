@@ -21,6 +21,7 @@ python3-pip
 python3-pygame
 software-properties-common
 swig 
+texlive-full
 torbrowser-launcher 
 vlc
 wget
