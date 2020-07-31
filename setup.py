@@ -53,6 +53,13 @@ def install_signal():
     if not Path("/etc/apt/sources.list.d/signal-xenial.list").is_file():
         check_call(cmd, shell=True)
 
+def install_vim():
+    cmd = """
+    sudo apt remove --assume-yes vim-tiny
+    """
+    cmd = "cp dotfiles/.vimrc ~"
+    execute(cmd, asuser=asuser)
+
 
 def execute(s, asuser="root"):
     if asuser != "root":
@@ -156,6 +163,7 @@ if __name__ == "__main__":
     install_visual_code()
     install_rust(parentuser)
     install_exa(parentuser)
+    install_vim(parentuser)
 
     # Install dropbox as user
     ps = subprocess.Popen(['ps', 'aux'], stdout=subprocess.PIPE).communicate()[0].decode('utf-8')

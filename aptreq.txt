@@ -23,6 +23,7 @@ software-properties-common
 swig 
 texlive-full
 torbrowser-launcher 
+vim
 vlc
 wget
 xclip 
