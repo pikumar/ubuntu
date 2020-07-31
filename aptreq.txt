@@ -22,6 +22,7 @@ python3-pygame
 software-properties-common
 swig 
 texlive-full
+tmux
 torbrowser-launcher 
 vim
 vlc
